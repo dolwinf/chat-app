@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { Avatar } from '@mui/material'
 import { AccessTime } from '@mui/icons-material'
 import SearchIcon from '@mui/icons-material/Search';
+import { HelpOutline } from '@mui/icons-material';
+
 
 const Header = () => {
     return (
@@ -16,11 +18,26 @@ const Header = () => {
                 <SearchIcon />
                 <input placeholder="Search Chat" />
             </HeaderSearch>
+            <HeaderRight>
+                <HelpOutline />
+            </HeaderRight>
         </HeaderContainer>
     )
 }
 
 export default Header
+
+
+const HeaderRight = styled.div`
+flex: 0.3;
+display: flex;
+align-items: flex-end;
+
+> .MuiSvgIcon-root {
+    margin-left: auto;
+    margin-right: 20px;
+}
+`;
 
 const HeaderSearch = styled.div`
 
