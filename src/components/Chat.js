@@ -1,14 +1,35 @@
-import { InfoOutlined } from '@mui/icons-material'
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
+import {useSelector} from 'react-redux'
 import styled from 'styled-components'
+import { InfoOutlined } from '@mui/icons-material'
+import { selectRoomId } from '../features/appSlice'
+import ChatInput from './ChatInput'
+import Message from './Message'
+import { useCollection, useDocument } from 'react-firebase-hooks/firestore'
+import { db } from '../firebaseConfig'
 
 const Chat = () => {
+
+    const chatRef= useRef(null)
+    const roomId = useSelector(selectRoomId)
+    const [roomDetails] = useDocument(roomId && db.collection('rooms').doc(roomId))
+
+    const [roomMessages] = useCollection(roomId && db.collection('rooms').doc(roomId).collection('messages').orderBy("timestamp", "asc"))
+
+    useEffect(() => {
+        if (!chatRef.current) return;
+        chatRef?.current?.scrollIntoView({
+            behavior: 'smooth'
+        });
+    }, [roomId])
+
     return (
         <ChatContainer>
-         
-            <Header>
+            {roomDetails && roomMessages && (
+                <>
+                <Header>
                 <HeaderLeft>
-                <h4><strong>#Room-name</strong></h4>
+                    <h4><strong>#{roomDetails?.data().name}</strong></h4>
                 </HeaderLeft>
                 <HeaderRight>
                     <p>
@@ -16,11 +37,30 @@ const Chat = () => {
                     </p>
                 </HeaderRight>
             </Header>
+            <ChatMessages>
+                {roomMessages?.docs.map(doc => {
+                    const { message, timestamp, user, userImage } = doc.data()
+                    return <Message key={doc.id} message={message} timestamp={timestamp} user={user} userImage={userImage} />
+                })}
+                <ChatBottom ref={chatRef} />
+            </ChatMessages>
+                    <ChatInput channelId={roomId} channelName={roomDetails?.data().name} chatRef={chatRef} />
+                    </>
+            )}
+            
         </ChatContainer>
     )
 }
 
 export default Chat
+
+
+const ChatBottom = styled.div`
+
+padding-bottom: 200px;
+`;
+
+const ChatMessages = styled.div``;
 
 const ChatContainer = styled.div`
 
