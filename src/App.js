@@ -18,7 +18,7 @@ function App() {
 
   const [user, loading] = useAuthState(auth)
 
-  if (!user) {
+  if (loading) {
     return ( <AppLoading>
               <AppLoadingContents>
                   Loading........
@@ -47,7 +47,6 @@ function App() {
 export default App;
 
 const AppBody = styled.div`
-
 display: flex;
 height: 100vh;
 
@@ -60,5 +59,4 @@ const AppLoadingContents = styled.div`
   align-items: center;
   height: 100vh;
   
-
 `;

@@ -9,12 +9,12 @@ import { auth } from '../firebaseConfig';
 const Header = () => {
 
     const [user] = useAuthState(auth)
-
+    const [display, setDisplay] = React.useState(false)
     return (
         <HeaderContainer>
             <HeaderLeft>
-                <HeaderAvatar onClick={() => auth.signOut()} src={user?.photoURL} alt={user?.displayName} />
-                <AccessTime />
+                {/* <HeaderAvatar onClick={() => auth.signOut()} src={user?.photoURL} alt={user?.displayName} /> */}
+                {/* <AccessTime /> */}
             </HeaderLeft>
 
             <HeaderSearch>
@@ -22,7 +22,8 @@ const Header = () => {
                 <input placeholder="Search Chat" />
             </HeaderSearch>
             <HeaderRight>
-                <HelpOutline />
+                {display && <span onClick={() => auth.signOut()} style={{ marginRight: '1em', marginBottom: '10px', cursor: 'pointer'}}>Logout</span>}
+                 <HeaderAvatar onClick={() => setDisplay(!display)} src={user?.photoURL} alt={user?.displayName} />
             </HeaderRight>
         </HeaderContainer>
     )
@@ -31,14 +32,17 @@ const Header = () => {
 export default Header
 
 
+
 const HeaderRight = styled.div`
 flex: 0.3;
 display: flex;
 align-items: flex-end;
+justify-content: end;
+margin-right: 2em;
 
 > .MuiSvgIcon-root {
     margin-left: auto;
-    margin-right: 20px;
+    margin-right: 100px;
 }
 `;
 

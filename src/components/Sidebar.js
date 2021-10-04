@@ -26,16 +26,16 @@ const Sidebar = () => {
                 <Create />
             </SidebarHeader>
 
-            <SideBarOptions Icon={InsertComment} title="Threads" />
+            {/* <SideBarOptions Icon={InsertComment} title="Threads" />
             <SideBarOptions Icon={Inbox} title="Mentions and Reactions" />
             <SideBarOptions Icon={Drafts} title="Saved items" />
             <SideBarOptions Icon={BookmarkBorder} title="Channel browser" />
             <SideBarOptions Icon={PeopleAlt} title="People + Users and Groups" />
             <SideBarOptions Icon={Apps} title="Apps" />
             <SideBarOptions Icon={FileCopy} title="File browser" />
-            <SideBarOptions Icon={ExpandLess} title="Show less" />
-            <hr />
-            <SideBarOptions Icon={ExpandMore} title='Channels' />
+            <SideBarOptions Icon={ExpandLess} title="Show less" /> */}
+            {/* <hr />
+            <SideBarOptions Icon={ExpandMore} title='Channels' /> */}
             <hr />
             <SideBarOptions Icon={Add} addChannelOption title='Add Channel' />
 
